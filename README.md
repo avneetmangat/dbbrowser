@@ -12,3 +12,4 @@ This folder contains:
 
 Type 'ant' and you will end up with built version of DBBrowser in the build folder.
 
+See http://databasebrowser.sourceforge.net 
