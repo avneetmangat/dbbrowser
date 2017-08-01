@@ -1,0 +1,8 @@
+<list>
+  <keyBinding>
+    <description>Help</description>
+    <keyCode>112</keyCode>
+    <modifierCode>0</modifierCode>
+    <action>Help -&gt; Help</action>
+  </keyBinding>
+</list>

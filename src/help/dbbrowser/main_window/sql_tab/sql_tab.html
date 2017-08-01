@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<head>
+    <link rel="stylesheet" href="../jhexamples.css" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>
+SQL tab
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<h1 align="center">SQL tab</h1>
+
+This panel allows the user to run SQL statements.  An SQL syntax colourer is built in to colour SQL keywords.  The colour mapping is:<br>
+<table width="50%" border="1" align="center">
+    <th>SQL keyword</th>
+    <th>Colour</th>
+
+    <tr>
+        <td>Select</td>
+        <td bgcolor="blue">Blue</td>
+    </tr>
+    <tr>
+        <td>As</td>
+        <td bgcolor="blue">Blue</td>
+    </tr>
+    <tr>
+        <td>Distinct</td>
+        <td bgcolor="blue">Blue</td>
+    </tr>
+    <tr>
+        <td>Insert</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>Update</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>Alter</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>Drop</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>Grant</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>Set</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>(</td>
+        <td bgcolor="magenta">Magenta</td>
+    </tr>
+    <tr>
+        <td>)</td>
+        <td bgcolor="magenta">Magenta</td>
+    </tr>
+    <tr>
+        <td>Values</td>
+        <td bgcolor="gray">Dark Gray</td>
+    </tr>
+    <tr>
+        <td>Where</td>
+        <td bgcolor="gray">Dark Gray</td>
+    </tr>
+    <tr>
+        <td>Into</td>
+        <td bgcolor="gray">Dark Gray</td>
+    </tr>
+    <tr>
+        <td>From</td>
+        <td bgcolor="gray">Dark Gray</td>
+    </tr>
+    <tr>
+        <td>.</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+    <tr>
+        <td>,</td>
+        <td bgcolor="red">Red</td>
+    </tr>
+
+</table>
+
+<br>
+
+The algorithm to colourize the SQL keywords is not efficient and will be improved in the next version.  It is auto-disabled for very large SQL statements.
+
+<br>
+<p align="center"><img src="../../images/sql tab.jpg" alt="SQL tab screenshot" height="600" width="800"/></p>
+
+<br>
+
+DBBrowser also provides Code help.  Press CTRL+space to bring up code help.  It might take some time to index the contents of the database while the code help is being built.
+
+<p align="center"><img src="../../images/building code help.jpg" alt="building code help screenshot" height="600" width="800"/></p>
+
+Once the indexing has been done, press CTRL+space to bring up a list of schemas, tables and column names.  These are shown in an heirarchical order allowing the user to choose any value to insert into the SQL statement.
+
+<p align="center"><img src="../../images/code help.jpg" alt="code help screenshot" height="600" width="800"/></p>
+
+</BODY>
+</HTML>

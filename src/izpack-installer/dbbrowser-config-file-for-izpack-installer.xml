@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!-- DBBrowser Configuration file for IzPack-->
+
+<installation version="1.0">
+    <info>
+        <appname>DBBrowser</appname>
+        <appversion>0.3</appversion>
+        <authors>
+            <author name="Avneet Mangat" email="avneet.mangat@gmail.com"/>
+        </authors>
+        <url>http://databasebrowser.sourceforge.net/</url>
+    </info>
+
+    <guiprefs width="640" height="480" resizable="no">
+       <laf name="looks">
+           <os family="windows" />
+       </laf>
+    </guiprefs>
+
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <resources>
+        <res id="LicencePanel.licence" src="docs/gpl-license.txt"/>
+        <res id="InfoPanel.info" src="docs/readme.txt"/>
+    	<res id="shortcutSpec.xml" src="src/izpack-installer/DBBrowser-Windows-ShortcutSpec.xml" />
+    </resources>
+    
+    <native type="izpack" name="ShellLink.dll" />
+    
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="ShortcutPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+
+    <packs>
+        <pack name="Base" required="yes">
+            <description>The application</description>
+            <fileset dir="build/dist" targetdir="$INSTALL_PATH"/>
+        </pack>
+        <pack name="Sources" required="no">
+            <description>Source code</description>
+            <file src="src" targetdir="$INSTALL_PATH"/>
+        </pack>
+    </packs>
+
+</installation>

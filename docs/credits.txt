@@ -1,0 +1,16 @@
+Credits:
+
+Java - www.java.com
+Java Mail and Java Activation Framework - http://java.sun.com/products/javamail/
+JSmooth - http://jsmooth.sourceforge.net/
+IzPack - http://www.izforge.com/izpack/
+JUnit - http://www.junit.org
+Log 4J - http://logging.apache.org/log4j/docs/
+JGoodies - http://www.jgoodies.com/
+Skin Look and Feel - http://sourceforge.net/projects/skinlf
+Look and Feel Themepacks - http://javootoo.l2fprod.com/plaf/skinlf/index.php
+Crystal KDE icons - http://linuxcult.com/forum/crystal.php
+SQL Syntax highlighting package - http://ostermiller.org/syntax/
+iText PDF library - http://www.lowagie.com/iText
+Metouia look and feel - http://mlf.sourceforge.net
+

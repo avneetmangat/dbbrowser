@@ -1,0 +1,5 @@
+<shortcuts>
+	<skipIfNotSupported/>
+	<programGroup defaultName="Sourceforge" location="startMenu"/>
+		<shortcut name="DBBrowser" target="$INSTALL_PATH/DBBrowser.exe" description="Start DBBrowser" programGroup="yes" desktop="no" startMenu="no" startup="no" initialState="normal" workingDirectory="$INSTALL_PATH" />
+</shortcuts>

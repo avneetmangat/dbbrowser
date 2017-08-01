@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <title>DBBrowser Technical Architecture document</title>
+
+  <chapter id="introduction">
+    <title>Introduction to DBBrowser</title>
+
+    <para>DBBrowser is an open source, cross-platform tool which can be used
+    to view the contents of a database. It supports CLOBS, BLOBS and Oracle
+    XMLTypes. It is designed to work with all the major DBMS (Oracle, MySQL,
+    SQLServer). The user should never have to write SQL to view the data
+    although a SQL window is provided. Support for ER (Entity Relationship)
+    diagrams is planned for the next version.</para>
+
+    <para></para>
+
+    <para>The main features are:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>View all data in tables without writing SQL</para>
+        </listitem>
+
+        <listitem>
+          <para>Support for CLOBs and BLOBS in Oracle and MySQL</para>
+        </listitem>
+
+        <listitem>
+          <para>SQL syntax highlighting</para>
+        </listitem>
+
+        <listitem>
+          <para>Add, remove, update records without writing SQL</para>
+        </listitem>
+
+        <listitem>
+          <para>Add, remove columns from tables without writing SQL</para>
+        </listitem>
+
+        <listitem>
+          <para>Export data as CSV, HTML Excel, Word or PDF files</para>
+        </listitem>
+
+        <listitem>
+          <para>More than 10 GUI skins to change the look and feel</para>
+        </listitem>
+
+        <listitem>
+          <para>Context Sensitive Help</para>
+        </listitem>
+
+        <listitem>
+          <para>Internationalized with 2 language packs. Support for plugging
+          in more language packs</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para></para>
+
+    <para>DBBrowser is hosted on the SourceForge website
+    (http://databasebrowser.sourceforge.net) and on Hercules worldwide website
+    (www.herculesworldwide.com/dbbrowser).</para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="architecture">
+    <title>Architecture</title>
+
+    <para>DBBrowser is divided into 4 layers.</para>
+
+    <para><table>
+        <title>DBBrowser layers</title>
+
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry>Layer</entry>
+
+              <entry>Function</entry>
+
+              <entry>java package</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>DB access layer</entry>
+
+              <entry>DBBrowser Engine - with different engine for various DBMS
+              and different engines for Query, update and running raw
+              SQL</entry>
+
+              <entry>org.dbbrowser.db.engine</entry>
+            </row>
+
+            <row>
+              <entry>Infrastructure</entry>
+
+              <entry>Infrastructure services such as set look and feel,
+              logging, property management, internationalization</entry>
+
+              <entry>infrastructure.jar</entry>
+            </row>
+
+            <row>
+              <entry>User interface</entry>
+
+              <entry>User interface</entry>
+
+              <entry>org.dbbrowser.ui</entry>
+            </row>
+
+            <row>
+              <entry>Driver manager</entry>
+
+              <entry>Setup connection to DBMS</entry>
+
+              <entry>org.dbbrowser.drivermanager</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></para>
+
+    <para><screenshot>
+        <screeninfo>DBBrowser layers</screeninfo>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata depth="10cm" fileref="DBBrowser access layers.gif"
+                       width="12cm" />
+          </imageobject>
+        </mediaobject>
+      </screenshot></para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="installer">
+    <title>Installer and executable</title>
+
+    <para>DBBrowser can be downloaded as a Windows installer ('exe' file). The
+    user can download this 'exe' file and double click on it to install
+    DBBrowser. An installer is launched which allows the user to specify some
+    options and install DBBrowser. If a JVM is not present, it will download
+    one for the user.</para>
+
+    <para>DBBrowser uses Izpack, an open source installer from IzForge.
+    DBBrowser uses JSmooth, an open source tool to wrap the installer in an
+    'exe' file so that the installer can be launched on Windows by double
+    clicking on the 'exe' file. For non-windows and windows platform, a java
+    installer is also provided which can be run from the command line as shown
+    below:</para>
+
+    <note>
+      <para>java -jar DBBrowser-installer-v0.1-build-1.jar</para>
+    </note>
+
+    <para>Once the installer has finished, DBBrowser is installed. On Windows,
+    the installer creates an 'exe' file which the user can double click to
+    launch DBBrowser. The DBBrowser launcher for windows is created using
+    launch4j, an open source wrapper for executable jar files.</para>
+
+    <para>The whole process of building the executables and installer is
+    automated using Ant. The Ant build file (build.xml) has a target
+    'build-and-generate-windows-exe-and-installer' which will 'clean',
+    'compile' and 'build' the project files. The target will then create a
+    windows 'exe' wrapper for the executable jar file, create the installer
+    and wrap the installer in another 'exe' file using JSmooth. The Ant build
+    file uses configuration files to build installer and executables. These
+    files are:</para>
+
+    <para></para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>dbbrowser-launch-4j.cfg - config file for launch4j</para>
+        </listitem>
+
+        <listitem>
+          <para>dbbrowser-config-file-for-izpack-installer.xml - config file
+          for izpack installer</para>
+        </listitem>
+
+        <listitem>
+          <para>dbbrowser.jsmooth.xml - config file for jsmooth wrapper -
+          wraps installer in 'exe' file</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para></para>
+
+    <para>RPM installer for Linux is planned for version 0.2.</para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="internationalization">
+    <title>Internationalization</title>
+
+    <para>Support for internationalisation is implemented through standard
+    Java Resource bundles. DBBrowser includes resource bundle for English
+    only. Version 0.2 onwards will have language packs for other languages as
+    well. The InternationalizationManager class is initialized using an input
+    stream. The InternationalizationManager also has the concept of
+    categories. Messages belong to a specific category. A category has a list
+    of messages. The list of messages is a Java Resource bundle.</para>
+
+    <para><table>
+        <title>Internationalization in DBBrowser</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Category</entry>
+
+              <entry>Messages(Resource Bundle)</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>dbbrowser-core</entry>
+
+              <entry>Starting DBBrowser..., etc</entry>
+            </row>
+
+            <row>
+              <entry>dbbrowser-ui</entry>
+
+              <entry>Please complete all the fields, Check this box to say you
+              have read this, etc</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>This allows the developer to split the messages into categories
+    just as the source code and logging is split up into packages and
+    categories.</para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="connectioninfo">
+    <title>Connection info</title>
+
+    <para>Information about the database connections are stored as an XML
+    file. The list of ConnectionInfo objects are converted to XML using
+    Castor(http://www.castor.org). Default Castor mapping is used to convert
+    Java objects to XML.</para>
+
+    <para>The purpose of storing the connection info in XML is to make the
+    connection info portable across different database browsing tools. As
+    there is no standard format for storing information about connection to a
+    database, the XML produced using default castor mapping is sufficient for
+    the task. There is no point in using customized XML format. A sample XML
+    fragment with connection info for 2 connections is shown below:</para>
+
+    <note>
+      <para>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</para>
+
+      <para>&lt;array-list&gt; &lt;connection-info
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:type="java:org.dbbrowser.drivermanager.ConnectionInfo"&gt;
+      &lt;DBMSType&gt;MySQL&lt;/DBMSType&gt;
+      &lt;password&gt;rfvyhn573&lt;/password&gt;
+      &lt;name&gt;mysql&lt;/name&gt;
+      &lt;driver-class-name&gt;com.mysql.jdbc.Driver&lt;/driver-class-name&gt;
+      &lt;last-used&gt;2006-01-10T15:31:12.078+05:30&lt;/last-used&gt;
+      &lt;database-uRL&gt;jdbc:mysql://localhost:3306/&lt;/database-uRL&gt;
+      &lt;username&gt;root&lt;/username&gt; &lt;/connection-info&gt;</para>
+
+      <para>&lt;connection-info&gt; &lt;DBMSType&gt;MsSQL&lt;/DBMSType&gt;
+      &lt;password&gt;september&lt;/password&gt;
+      &lt;name&gt;sqltest&lt;/name&gt;
+      &lt;driver-class-name&gt;net.sourceforge.jtds.jdbc.Driver&lt;/driver-class-name&gt;
+      &lt;last-used&gt;2005-12-29T16:30:24.000+05:30&lt;/last-used&gt;
+      &lt;database-uRL&gt;jdbc:jtds:sqlserver://localhost/testdatabase&lt;/database-uRL&gt;
+      &lt;username&gt;gaurav&lt;/username&gt; &lt;/connection-info&gt;</para>
+
+      <para>&lt;/array-list&gt;</para>
+    </note>
+
+    <para>Password in the connection info is encrypted and encoded using
+    BASE64 encoding. (TODO - add more info about how to achieve this)</para>
+
+    <para>A side effect of using Castor for persisting Connection info as a
+    XML string is that the ConnectionInfo class has Java Bean style getXXX()
+    and setXXX() methods for all the attributes. This is a deviation from the
+    use of Immutable pattern in all other DTOs such as DBTableCell and
+    ColumnInfo. DTOs in DBBrowser such as DBTableCell and ColumnInfo are
+    immutable objects and the values cannot be changed after they have been
+    created.</para>
+
+    <para>A connection info represents all the information DBBrowser needs to
+    setup a connection. The connection infos can be setup via the UI when
+    DBBrowser starts up. The XML file with the ConnectionInfos can be loaded
+    into DBBrowser via the File-&gt;Open menu. The user can change the
+    connection info via the UI.</para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="jdbc_drivers">
+    <title>JDBC Drivers</title>
+
+    <para>DBBrowser should work with MySQL and Oracle DBMS. Support for MS-SQL
+    is planned for version 0.2. DBBrowser does not include any JDBC drivers
+    and the user must download the appropriate JDBC driver. A 'first-time'
+    dialog reminds the user to download the JDBC driver for the DBMS and
+    ‘register’ it with DBBrowser. During registration, DBBrowser associates
+    the JDBC driver with a connection info. When setting a connection,
+    DBBrowser uses the JDBC driver classes in the jar file to setup the
+    connection. The registration can be done through the UI when defining a
+    new connection. The location of the jdbc drive is stored in the
+    'ConnectionInfo'.</para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="ui">
+    <title>User Interface</title>
+
+    <para>The user interface is built using Java Swing. The only other option
+    is to use IBM SWT. A brief comparison of Swing and SWT is shown
+    below:</para>
+
+    <para><table>
+        <title>Comparision of Swing and SWT</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Swing</entry>
+
+              <entry>SWT</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>Well know in the open source community</entry>
+
+              <entry>Not that well known compared to Swing</entry>
+            </row>
+
+            <row>
+              <entry>Number of Look and Feels available</entry>
+
+              <entry>No know look and feels available except the native look
+              and feel</entry>
+            </row>
+
+            <row>
+              <entry>Designed for building GUIs</entry>
+
+              <entry>Designed for building Eclipse and oriented to building
+              Eclipse although other applications have been written (e.g.
+              Azureus)</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="retrieving_data">
+    <title>Retrieving data</title>
+
+    <para>DBBrowser relies on several SQL engines to retrieve data. The data
+    is always returned in the form of a table. DBBrowser has knowledge of the
+    different dialects of SQL understood by various DBMS. Currently, MySQL and
+    Oracle is supported. Other DBMS will be supported in the future. The
+    common SQL commands are run by a Generic SQL Query engine and the DBMS
+    specific commands are run by DBMS specific engines. A good example is the
+    SQL commands to retrieve a subset of the data in the table (paging). They
+    are different for different DBMS.</para>
+
+    <para></para>
+
+    <para>See 2 examples below for a table with name 'tablename'.</para>
+
+    <para>For Oracle, the command is:</para>
+
+    <para></para>
+
+    <note>
+      <para>select * from tablename where rownum &lt;= 100 and ID in ( select
+      ID from tablename group by ID ) minus select * from tablename where
+      rownum &lt; 1 and ID in ( select ID from tablename group by ID )</para>
+    </note>
+
+    <para></para>
+
+    <para>...where id is the primary key of the table. This SQL will return
+    the first 100 records in the table.</para>
+
+    <para></para>
+
+    <para>For MySQL, the SQL is:</para>
+
+    <para></para>
+
+    <note>
+      <para>SELECT * FROM tablename LIMIT 1, 100</para>
+    </note>
+
+    <para></para>
+
+    <para>This will also return the first 100 records in the table.</para>
+
+    <para></para>
+
+    <para>DBBrowser generates different dialects of SQL depending on the
+    DBMS.</para>
+
+    <para></para>
+  </chapter>
+
+  <chapter id="export_data">
+    <title>Export data</title>
+
+    <para>Data retrieved from a database can be exported to various formats.
+    They are:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>CSV files</para>
+        </listitem>
+
+        <listitem>
+          <para>PDF (using iText library)</para>
+        </listitem>
+
+        <listitem>
+          <para>Microsoft Excel (using jxl library)</para>
+        </listitem>
+
+        <listitem>
+          <para>HTML</para>
+        </listitem>
+
+        <listitem>
+          <para>SQL</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para></para>
+
+    <para>The SQL wizard generates SQL 'insert' statements which can be used
+    to transfer data from one database to another.</para>
+
+    <para></para>
+
+    <para>A Wizard based interface is used to get the user input. For all
+    formats, the wizard asks the user to specify the following
+    parameters:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Location of the file</para>
+        </listitem>
+
+        <listitem>
+          <para>Format for date (e.g. 04-JAN-06 or 4/1/2006)</para>
+        </listitem>
+
+        <listitem>
+          <para>The user can select columns to include in the report(BLOBS and
+          CLOBS are not included)</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para></para>
+
+    <para>For PDF and Excel files, the user can specify additional
+    parameters:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Header and footer</para>
+        </listitem>
+
+        <listitem>
+          <para>Background colour for column head</para>
+        </listitem>
+      </itemizedlist>For PDF files, the user can specify additional
+    parameters:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Portrait or Landscape orientation</para>
+        </listitem>
+
+        <listitem>
+          <para>Paper size - A4, Letter, A3, A5 etc</para>
+        </listitem>
+
+        <listitem>
+          <para>PDF document meta data such as author name etc.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para></para>
+
+    <para>The wizard will present different options to the user depending on
+    the data format required. The requirements of a wizard are:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Wizard should provide means to navigate between panels, handle
+          layout using layout managers</para>
+        </listitem>
+
+        <listitem>
+          <para>Allow conditional branching - different panels may have to be
+          shown depending on the user input</para>
+        </listitem>
+
+        <listitem>
+          <para>Should be stateful - Data should not be lost while the user
+          navigates between panels.</para>
+        </listitem>
+
+        <listitem>
+          <para>The Wizard show conform to standard Java/Sun guidelines for
+          wizards</para>
+        </listitem>
+
+        <listitem>
+          <para>It should be well-documented</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para></para>
+
+    <para>'Step by Step' tool was used initially but it was difficult to use
+    and comes without any documentation
+    (http://sourceforge.net/projects/stepbystep). The problems faced
+    were:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Poor documentation</para>
+        </listitem>
+
+        <listitem>
+          <para>Badly written code</para>
+        </listitem>
+
+        <listitem>
+          <para>Difficult to change wizard navigation once the wizard has been
+          built</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>Wizards are now built using sample code taken from Sun website
+    (http://java.sun.com/developer/technicalArticles/GUI/swing/wizard/). For
+    more information about wizards, see the Java Look and Feel guidelines
+    (http://java.sun.com/products/jlf/at/book/index.html).</para>
+
+    <para></para>
+
+    <para><screenshot>
+        <screeninfo>Workflow and panels for export</screeninfo>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata depth="16cm" fileref="Export wizard panels.gif"
+                       width="15cm" />
+          </imageobject>
+        </mediaobject>
+      </screenshot></para>
+
+    <para></para>
+
+    <para></para>
+
+    <para></para>
+  </chapter>
+</book>

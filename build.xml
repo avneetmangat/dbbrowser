@@ -1,0 +1,202 @@
+<project name="DBBrowser" default="build" basedir="./">
+    <description>
+        Build file for building DBBrowser code
+    </description>
+
+    <property file="build.properties"/>
+    <property file="src/ant/ant-build-number.txt"/>
+
+    <path id="classpath">
+		<fileset dir="lib">
+		    <include name="**/*.jar"/>
+            <include name="${dbbrowser-izpack-installation-folder}/lib/compiler.jar"/>
+        </fileset>
+	</path>
+	
+	<target name="print-variables">
+        <echo>+-----------------------------------+</echo>
+        <!--List all properties from the property file-->
+        <echo>Listing properties from property file...</echo>
+        <echoproperties>
+            <propertyset>
+              <propertyref prefix="dbbrowser"/>
+            </propertyset>
+        </echoproperties>
+        <echo>done.</echo>
+        <echo>+-----------------------------------+</echo>
+    </target>
+    
+   	<target name="clean">
+        <echo>+-----------------------------------+</echo>
+        <echo>Cleaning up</echo>
+		<delete dir="build"/>
+		<delete dir="docs/javadocs"/>
+        <echo>done.</echo>
+        <echo>+-----------------------------------+</echo>
+    </target>
+
+	<target name="build" depends="print-variables">
+	  	<echo level="info">Deleting build folder...</echo>
+	  	<delete dir="build"/>
+
+	  	<mkdir dir="build/classes"/>
+	  	<mkdir dir="build/jar"/>
+	  	<mkdir dir="build/exploded-jar"/>
+	    <mkdir dir="build/dist"/>
+	    <mkdir dir="build/installer"/>
+		<mkdir dir="build/mac osx app/"/>
+
+	    <echo level="info">+-----------------------------------+</echo>
+	  	<echo level="info">Compiling java classes...</echo>
+	  		<javac destdir="build/classes" srcdir="src/java/code" debug="true">
+	  		    <classpath refid="classpath" />
+	  		</javac>
+	  		<javac destdir="build/classes" srcdir="src/java/test" debug="true">
+	  		    <classpath refid="classpath" />
+	  		</javac>
+	  	<echo level="info">done.</echo>
+
+	  	<echo level="info">+-----------------------------------+</echo>
+		
+		<!--Set the first run message completed flag to be false-->
+	   	<replace file="src/properties/db browser.properties" token="dbbrowser-first-run-completed=false" value="dbbrowser-first-run-completed=true"/>
+		
+		<echo level="info">Building jar file...</echo>
+	  	<!--Include classes from all packages-->
+		<copy todir="build/exploded-jar">
+			<fileset dir="build/classes" includes="**/*.class"/>
+		</copy>
+	  	<!--Build the DBBrowser jar file-->
+		<jar destfile="build/jar/DBBrowser.jar" manifest="src/manifest/dbbrowser/MANIFEST.MF">
+			<fileset dir="build/exploded-jar"/>
+	    </jar>
+
+        <!--Delete the exploded jar folder-->
+        <delete dir="build/exploded-jar" />
+
+        <echo level="info">done.</echo>
+
+	    <echo level="info">+-----------------------------------+</echo>
+
+            <echo level="info">Building DBBrowser help jar file...</echo>
+            <jar destfile="lib/DBBrowserHelp.jar">
+              <fileset dir="src/help"/>
+	    </jar>
+            <echo level="info">done.</echo>
+
+	    <echo level="info">+-----------------------------------+</echo>
+
+	    <echo level="info">Building dist folder...</echo>
+
+        <!--Copy files for distribution to the dist folder-->
+	    <copy file="build/jar/DBBrowser.jar" todir="build/dist" />
+	    <copy todir="build/dist/lib">
+	        <fileset dir="lib" />
+	    </copy>
+
+        <copydir src="docs" dest="build/dist/docs" />
+
+		<!--Copy properties, key bindings and images to build folder-->
+        <copy todir="build/dist/src/properties">
+	        <fileset dir="src/properties" />
+	    </copy>
+        <copy todir="build/dist/src/images">
+	        <fileset dir="src/images" />
+	    </copy>	
+        <copy todir="build/dist" file="src/key-bindings.xml" />
+
+	    <echo level="info">done.</echo>
+
+	    <echo level="info">+-----------------------------------+</echo>
+
+	    <!--Increment the build number in the build number file-->
+	    <echo level="info">Incrementing the build file</echo>
+	        <buildnumber file="src/ant/ant-build-number.txt"/>
+	  	<echo level="info">done.</echo>
+		
+	    <echo level="info">+-----------------------------------+</echo>
+
+	    <!--Zip the dist folder and make it a distribution-->	
+		<echo level="info">Zipping dist folder</echo>
+		<zip destfile="build/DBBrowser-v${dbbrowser-version}-build-${build.number}.zip" basedir="build/dist" />
+		<echo level="info">done.</echo>
+	    <echo level="info">+-----------------------------------+</echo>
+	</target>
+		
+	<!--package the app for mac osx-->
+	<target name="package-app-for-osx" depends="build">
+		<echo level="info">Builing app for mac osx</echo>
+		<taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler" classpath="build-libs/jarbundler-2.0.0.jar" />
+		<jarbundler dir="build/mac osx app" name="DBBrowser" mainclass="org.dbbrowser.DBBrowser" verbose="true" workingdirectory="$APP_PACKAGE/Contents/Resources/" icon="lib/icons/split_square.icns" version="0.3 build 1">
+			<javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+			<jarfileset dir="build/dist/">
+				<include name="**/*.jar" />
+			</jarfileset>
+			<resourcefileset dir="./">
+				<include name="src/properties/" />
+				<include name="src/images/" />
+				<include name="src/key-bindings.xml" />
+				<include name="docs/" />
+				<include name="lib/icons/" />
+				<include name="lib/themepacks/" />
+			</resourcefileset>
+		</jarbundler>
+		<echo level="info">done.</echo>
+	    <echo level="info">+-----------------------------------+</echo>
+	</target>
+
+	<target name="build-and-generate-windows-exe-and-installer" depends="build">
+	    <echo level="info">+-----------------------------------+</echo>
+        <echo level="info">Using launch4j to build DBBrowser.exe...</echo>
+		<exec executable="${dbbrowser-launch4j-installation-folder}/launch4jc.exe">
+			<arg value="src/launch4j/launch4j-config.xml" />
+		</exec>
+		
+	    <echo level="info">+-----------------------------------+</echo>
+        <echo level="info">Building Installer using IzPack...</echo>
+        
+    	<!--Define the task for creating java installer using lzpack-->
+    	<taskdef name="izpack" classpath="${dbbrowser-izpack-installation-folder}/lib/compiler.jar" classname="com.izforge.izpack.ant.IzPackTask" />
+	    <izpack input="src/izpack-installer/dbbrowser-config-file-for-izpack-installer.xml" output="build/installer/DBBrowser-installer-v${dbbrowser-version}-build-${build.number}.jar" installerType="standard" basedir="." izPackDir="${dbbrowser-izpack-installation-folder}" />
+
+	    <echo level="info">+-----------------------------------+</echo>
+	    <echo level="info">Building Windows executable installer using JSmooth...</echo>
+	    <!--Copy the JSmooth src file to installer dir-->
+	   	<copy file="src/jsmooth-exe-wrapper-for-java-installer/dbbrowser.jsmooth.xml" todir="build/installer" />
+
+	    <!--Replace the token in the jsmooth config file with the build number-->
+	   	<replace file="build/installer/dbbrowser.jsmooth.xml" token="[build-number]" value="${build.number}" />
+	   	<replace file="build/installer/dbbrowser.jsmooth.xml" token="[dbbrowser-version]" value="${dbbrowser-version}" />
+
+	    <!--Generate the windows exe installer from executable jar file-->
+    	<!--Define the task for creating wrapping the java installer into a windows executable using JSmooth-->
+		<taskdef name="jsmoothgen" classname="net.charabia.jsmoothgen.ant.JSmoothGen" classpath="${dbbrowser-jsmooth-installation-folder}/lib/jsmoothgen-ant.jar" />
+	    <jsmoothgen project="build/installer/dbbrowser.jsmooth.xml" skeletonroot="${dbbrowser-jsmooth-installation-folder}/skeletons"/>
+
+        <!--Delete the jsmoothgen file from the installer folder-->
+        <delete file="build/installer/dbbrowser.jsmooth.xml" />
+
+        <echo level="info">done.</echo>
+
+	    <echo level="info">+-----------------------------------+</echo>
+	</target>
+
+	<!--Build javadcos-->
+	<target name="javadoc">
+	  	<echo>Deleting javadocs folder...</echo>
+	  		<delete dir="docs/javadocs"/>
+	  	<echo>done.</echo>
+
+	  	<mkdir dir="docs/javadocs"/>
+
+	  	<echo>Building javadocs...</echo>
+		<javadoc packagenames="org.dbbrowser.*" sourcepath="src/java/code" destdir="docs/javadocs" windowtitle="DBBrowser">
+		    <classpath>
+		      <fileset dir="lib">
+		        <include name="**/*.jar"/>
+		      </fileset>
+		    </classpath>
+		</javadoc>
+	  	<echo>done.</echo>
+	</target>
+</project>

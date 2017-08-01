@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<head>
+    <link rel="stylesheet" href="../jhexamples.css" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>
+Connection information window
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<h1 align="center">Connection Information window</h1>
+Connection information is used to manage connections to databases.  This window allows one to create a new connection to a database, change the connection details and delete a connection.  To connect to a database, the user has to specify:<br>
+<ul>
+    <li>Name of the connection - to identify this connection</li>
+    <li>Location of type 4 JDBC driver file - DBBrowser connects to the database using this vendor specific JDBC driver.  Download this from the vendors website</li>
+    <li>Name of Driver class - this class implements the java.sql.Driver interface.  DBBrowser recursively scans the JDBC jar file and lists all the drivers in the jar file</li>
+    <li>URL for use by the JDBC driver</li>
+    <li>Username</li>
+    <li>Password</li>
+</ul>
+
+<br>
+
+<p align="center"><img src="../images/connection information window.jpg" alt="Connection information window screenshot" height="600" width="800"/></p>
+
+<br>
+
+Set up a connection in the New Connections panel and click on 'Connect'.
+</BODY>
+</HTML>

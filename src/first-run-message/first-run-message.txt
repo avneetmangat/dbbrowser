@@ -1,0 +1,15 @@
+The file format for storing connection info has changed.  Connection info is stored in XML format.
+The old binary format for connection info is no longer supported.
+
+Please download JDBC driver jar file for your DBMS from your vendors site
+and store them on your local machine.
+
+Oracle 9i/10g DBMS - http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html
+MySQL DBMS - http://www.mysql.com/products/connector/j/
+
+DBBrowser will ask you for the location of JDBC driver jar file when you set up a new connection.
+
+If you change the location of your JDBC driver jar file after setting up a connection,
+you will need to edit the connection information for the connection to connect.
+This can be done via the UI.
+

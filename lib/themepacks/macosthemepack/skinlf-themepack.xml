@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<skinlf-themepack require="0.3">
+	<property name="JDesktopPane.backgroundEnabled" value="false" />
+	<property name="ScrollBar.alternateLayout" value="true" />
+
+	<skin>
+		<skin url="gtk/gtkrc"></skin>
+		<skin url="kde/kde.themerc"></skin>
+	</skin>
+
+</skinlf-themepack>

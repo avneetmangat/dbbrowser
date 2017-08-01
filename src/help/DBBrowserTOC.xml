@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+<toc version="1.0" categoryclosedimage="chapter" topicimage="topic">
+	<tocitem text="DBBrowser">
+		<tocitem text="Introduction" target="intro"/>
+        <tocitem text="Connection information window" target="connection_information_window"/>
+		<tocitem text="Main window">
+			<tocitem text="Browser tab">
+				<tocitem text="Data browser tab" target="data_browser"/>
+				<tocitem text="Column properties tab" target="column_properties"/>
+			</tocitem>
+			<tocitem text="SQL tab" target="sql_tab"/>
+            <tocitem text="Sequences tab" target="sequences_tab"/>
+        </tocitem>
+		<tocitem text="View record window" target="view_record_window"/>
+		<tocitem text="Set filter for a table window" target="set_filter_window"/>
+		<tocitem text="Preferences window" target="preferences_window"/>
+		<tocitem text="Toolbar" target="toolbar"/>
+	</tocitem>
+</toc>

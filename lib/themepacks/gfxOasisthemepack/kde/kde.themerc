@@ -1,0 +1,89 @@
+[General]
+name=Template
+author=MsStylesToSkinLF
+email=noone@isinnocent.com
+homepage=http://www.noone.com
+description=Template
+version=1.0
+
+[Panel]
+background=background.bmp
+
+[Colors]
+desktop=181 198 214
+
+background=237 237 232
+foreground=109 109 97
+
+activeBackground=237 237 232
+activeForeground=109 109 97
+
+inactiveBackground=237 237 232
+inactiveForeground=170 170 159
+
+activeBlend=53,99,144
+inactiveBlend=192,192,192
+
+selectBackground=181 198 214
+selectForeground=66 113 138
+
+contrast=7
+
+windowBackground=255 255 255
+windowForeground=109 109 97
+
+[Window Titlebar]
+CloseButton=close.png
+CloseRolloverButton=close_rollover.png
+CloseDownButton=close_down.png
+CloseInactiveButton=close_disabled.png
+
+MaximizeButton=maximize.png
+MaximizeRolloverButton=maximize_rollover.png
+MaximizeDownButton=maximize_down.png
+MaximizeInactiveButton=maximize_disabled.png
+
+MenuButton=menu.xpm
+
+MinimizeButton=minimize.png
+MinimizeRolloverButton=minimize_rollover.png
+MinimizeDownButton=minimize_down.png
+MinimizeInactiveButton=minimize_disabled.png
+
+StickyButton=sticky.xpm
+StickyDownButton=stickydown.xpm
+
+TitlebarPixmapActive=titlebar_selected.png
+TitlebarPixmapActiveBorder=18, 59, 0, 23
+TitlebarPixmapActiveLeft=
+TitlebarPixmapActiveRight=
+TitlebarPixmapActiveTop=
+TitlebarPixmapActiveBottom=
+TitlebarPixmapInactive=titlebar_unselected.png
+
+PixmapUnderTitleText=yes
+TitleFrameShaded=yes
+TitleAlignment=middle
+
+[Window Border]
+shapePixmapTop=
+shapePixmapBottom=window_bottom.png
+shapePixmapLeft=window_left.png
+shapePixmapRight=window_right.png
+shapePixmapTopLeft=window_topleft.png
+shapePixmapTopRight=window_topright.png
+shapePixmapBottomLeft=window_bottomleft.png
+shapePixmapBottomRight=window_bottomright.png
+
+[Window Button Layout]
+ButtonA=Off
+ButtonB=Off
+ButtonC=Off
+ButtonD=Close
+ButtonE=Maximize
+ButtonF=Iconify
+
+[Sounds]
+WindowShadeDown=RollUp.wav
+WindowShadeUp=RollUp.wav
+WindowClose=Close.wav

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE index PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/index_1_0.dtd">
+<index version="1.0">
+    <indexitem text="Connection information window" target="connection_information_window"/>
+	<indexitem text="Data browser tab" target="data_browser"/>
+	<indexitem text="Column properties tab" target="column_properties"/>
+	<indexitem text="SQL tab" target="sql_tab"/>
+	<indexitem text="View record window" target="view_record_window"/>
+	<indexitem text="Set filter for a table" target="set_filter_window"/>
+	<indexitem text="Customise window" target="customise_window"/>
+	<indexitem text="Toolbar" target="toolbar"/>
+</index>

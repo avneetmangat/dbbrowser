@@ -1,0 +1,2 @@
+Main-Class: org.dbbrowser.DBBrowser
+Class-Path: lib/DBBrowserHelp.jar lib/infrastructure.jar lib/jh.jar lib/jhall.jar lib/jhbasic.jar lib/jsearch.jar lib/junit.jar lib/log4j-1.2.8.jar lib/looks-1.3.1.jar lib/skinlf.jar lib/activation.jar lib/mail.jar lib/smtp.jar lib/pop3.jar lib/mailapi.jar lib/imap.jar lib/syntax.jar lib/itext-1.3.jar lib/jxl.jar lib/xstream-1.1.3.jar lib/xpp3-1.1.3.4d_b4_min.jar lib/axis.jar

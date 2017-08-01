@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE map PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/map_1_0.dtd">
+<map version="1.0">
+	<mapID target="intro" url="intro.html"/>
+    <mapID target="connection_information_window" url="dbbrowser/connection_information_window/connection_information.html"/>
+	<mapID target="data_browser" url="dbbrowser/main_window/browser_tab/data_browser/data_browser.html"/>
+	<mapID target="column_properties" url="dbbrowser/main_window/browser_tab/column_properties/column_properties.html"/>
+    <mapID target="sql_tab" url="dbbrowser/main_window/sql_tab/sql_tab.html"/>
+    <mapID target="sequences_tab" url="dbbrowser/sequences_tab/sequences_tab.html"/>
+	<mapID target="view_record_window" url="dbbrowser/view_record_window/view_record.html"/>
+	<mapID target="set_filter_window" url="dbbrowser/set_filter_window/set_filter.html"/>
+	<mapID target="preferences_window" url="dbbrowser/preferences_window/preferences_window.html"/>
+	<mapID target="toolbar" url="dbbrowser/toolbar/toolbar.html"/>
+	<mapID target="topic" url="images/topic.gif"/>
+	<mapID target="chapter" url="images/chapTopic.gif"/>
+</map>
